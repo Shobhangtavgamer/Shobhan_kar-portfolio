@@ -1,0 +1,480 @@
+import medoraMain from '../upload/webp/medora.webp'
+import medoraOverview from '../upload/webp/medora-overview.webp'
+import medoraMobile from '../upload/webp/medora-mobile.webp'
+import bridgeMain from '../upload/webp/bridge-main.webp'
+import bridgeDetail from '../upload/webp/bridge-detail.webp'
+import bridgeDetailAlt from '../upload/webp/bridge-dashboard.webp'
+import bridgeMark from '../upload/webp/bridge-mark.webp'
+import mirrorMain from '../upload/webp/mirror-main.webp'
+import mirrorDetail from '../upload/webp/mirror-detail.webp'
+import codertineHome from '../upload/webp/codertine-2.webp'
+import codertineRoadmap from '../upload/webp/codertine-3.webp'
+import codertineGuide from '../upload/webp/codertine-1.webp'
+
+export const profile = {
+  name: 'Shobhan',
+  firstName: 'Shobhan',
+  initials: 'S',
+  role: 'Software Engineer',
+  roles: ['software engineer', 'full-stack developer', 'problem solver', 'interface craftsman'],
+  tagline: 'I build software that feels inevitable.',
+  intro:
+    'Full-stack engineer with a soft spot for expressive interfaces. I turn complicated systems into products that are fast, useful, and genuinely nice to use.',
+  availability: 'Open to internships & full-time roles',
+  location: 'India',
+  timezone: 'IST · UTC+5:30',
+  email: 'karshobhan61@gmail.com',
+  github: 'https://github.com/Shobhangtavgamer',
+  githubHandle: '@Shobhangtavgamer',
+  linkedin: 'https://www.linkedin.com/in/shobhan-kar-906bb3322/',
+  resume: '#contact',
+  copyright: '© 2026 Shobhan. Built with intent.',
+}
+
+export const socials = [
+  { label: 'GitHub', href: profile.github },
+  { label: 'LinkedIn', href: profile.linkedin },
+  { label: 'Email', href: `mailto:${profile.email}` },
+]
+
+export const navItems = [
+  { label: 'About', href: '#about' },
+  { label: 'Skills', href: '#skills' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Work', href: '#projects' },
+  { label: 'Wins', href: '#achievements' },
+  { label: 'Certs', href: '#certifications' },
+  { label: 'GitHub', href: '#github' },
+  { label: 'Contact', href: '#contact' },
+]
+
+export const stats = [
+  { value: 3, suffix: '+', label: 'Years building' },
+  { value: 12, suffix: '', label: 'Products shipped' },
+  { value: 500, suffix: '+', label: 'DSA problems solved' },
+  { value: 8, suffix: '', label: 'Hackathons & events' },
+]
+
+export const about = {
+  eyebrow: 'A little context',
+  headline: 'Engineering is the craft. Design is the point of view.',
+  body: [
+    'I started out chasing the why behind how things work, then fell for the moment a hard problem becomes an obvious interface. Today I work across the stack, from data models and APIs to the last 8 pixels of a hover state.',
+    'Most of my work sits where clarity matters: healthcare journeys, event platforms, and operational tools. I care about fast feedback, honest copy, and software that respects the people using it.',
+  ],
+  principles: [
+    {
+      number: '01',
+      title: 'Clarity is a feature',
+      copy: 'The best interface is the one you do not have to think about. I remove friction before adding flourish.',
+      accent: 'lime',
+    },
+    {
+      number: '02',
+      title: 'Ship, then sharpen',
+      copy: 'Real usage beats perfect speculation. I build the smallest honest version, measure it, and iterate in public.',
+      accent: 'blue',
+    },
+    {
+      number: '03',
+      title: 'Details are the product',
+      copy: 'Motion, spacing, error states, empty states. The tiny decisions are what make software feel alive.',
+      accent: 'coral',
+    },
+  ],
+  facts: [
+    { label: 'Based in', value: 'India' },
+    { label: 'Focus', value: 'Full-stack + interaction' },
+    { label: 'Currently', value: 'Building in public' },
+    { label: 'Off-screen', value: 'Chess, film, long walks' },
+  ],
+}
+
+export type SkillGroup = {
+  id: string
+  title: string
+  kicker: string
+  icon: 'code' | 'server' | 'database' | 'tools' | 'brain'
+  accent: 'paper' | 'lime' | 'blue' | 'coral' | 'lilac'
+  skills: string[]
+}
+
+export const skillGroups: SkillGroup[] = [
+  {
+    id: 'frontend',
+    title: 'Frontend',
+    kicker: 'Interfaces with a pulse',
+    icon: 'code',
+    accent: 'lime',
+    skills: ['React', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3', 'Tailwind CSS', 'Vite', 'Framer-level motion'],
+  },
+  {
+    id: 'backend',
+    title: 'Backend',
+    kicker: 'Systems that hold up',
+    icon: 'server',
+    accent: 'blue',
+    skills: ['Java', 'Spring Boot', 'Node.js', 'Python', 'REST APIs', 'Authentication', 'API design'],
+  },
+  {
+    id: 'data',
+    title: 'Data',
+    kicker: 'From schema to story',
+    icon: 'database',
+    accent: 'coral',
+    skills: ['PostgreSQL', 'MySQL', 'MongoDB', 'Redis', 'SQL', 'Data modelling', 'D3.js'],
+  },
+  {
+    id: 'tools',
+    title: 'Tooling',
+    kicker: 'The workshop',
+    icon: 'tools',
+    accent: 'lilac',
+    skills: ['Git', 'GitHub', 'Docker', 'Linux', 'Postman', 'Figma', 'CI / CD'],
+  },
+  {
+    id: 'foundations',
+    title: 'Foundations',
+    kicker: 'The parts that compound',
+    icon: 'brain',
+    accent: 'paper',
+    skills: ['Data structures', 'Algorithms', 'OOP', 'DBMS', 'Operating systems', 'System design'],
+  },
+]
+
+export const techMarquee = [
+  'React',
+  'TypeScript',
+  'Java',
+  'Spring Boot',
+  'Node.js',
+  'Python',
+  'PostgreSQL',
+  'Docker',
+  'Tailwind',
+  'Git',
+  'D3.js',
+  'Figma',
+]
+
+export type ExperienceItem = {
+  period: string
+  role: string
+  org: string
+  type: 'work' | 'education' | 'community'
+  description: string
+  highlights: string[]
+  stack: string[]
+}
+
+export const experience: ExperienceItem[] = [
+  {
+    period: '2024 — Present',
+    role: 'Independent Software Engineer',
+    org: 'Freelance · Remote',
+    type: 'work',
+    description:
+      'Designing and shipping end-to-end products for small teams: healthcare flows, event platforms, and internal tools. I own the whole arc, from product questions to production deploys.',
+    highlights: [
+      'Built reusable React + TypeScript foundations that cut feature build time in half.',
+      'Designed REST APIs with Spring Boot and Node.js, backed by PostgreSQL.',
+      'Set up CI, previews, and release checklists for dependable shipping.',
+    ],
+    stack: ['React', 'TypeScript', 'Spring Boot', 'PostgreSQL', 'Docker'],
+  },
+  {
+    period: '2025',
+    role: 'Frontend Engineer',
+    org: 'CoderTine 7.0 · Event Platform',
+    type: 'work',
+    description:
+      'Led the frontend for a five-day coding festival. Turned a dense event schedule into a fast, scroll-driven experience with a distinct visual identity.',
+    highlights: [
+      'Shipped a dependency-light React + Vite experience under tight event deadlines.',
+      'Built a hash router, scroll choreography, and animated background system.',
+      'Created a reusable event data model for five modules and detail pages.',
+    ],
+    stack: ['React', 'TypeScript', 'Vite', 'CSS'],
+  },
+  {
+    period: '2023 — Present',
+    role: 'Open Source & Community',
+    org: 'GitHub · Competitive programming',
+    type: 'community',
+    description:
+      'Contributing small fixes, documenting what I learn, and staying sharp with daily algorithm work. Community reviews have made me a calmer, more precise engineer.',
+    highlights: [
+      '500+ data structures and algorithms problems across platforms.',
+      'Write-ups on frontend architecture, accessibility, and debugging.',
+      'Regular participant in hackathons and campus tech events.',
+    ],
+    stack: ['C++', 'Java', 'Git', 'Markdown'],
+  },
+  {
+    period: '2023 — 2027',
+    role: 'B.Tech, Computer Science',
+    org: 'University · India',
+    type: 'education',
+    description:
+      'Coursework across algorithms, operating systems, DBMS, computer networks, and software engineering, paired with a lot of self-directed building.',
+    highlights: [
+      'Consistent top-quartile performance in core CS subjects.',
+      'Course projects spanning web, AI/ML, and systems fundamentals.',
+      'Active in coding clubs and peer learning sessions.',
+    ],
+    stack: ['DSA', 'DBMS', 'OS', 'Networks'],
+  },
+]
+
+export type ProjectVisualVariant = 'medora' | 'codertine' | 'supply' | 'pulse' | 'ledger'
+
+export type ProjectImage = {
+  src: string
+  alt: string
+  label: string
+}
+
+export type Project = {
+  id: string
+  title: string
+  category: 'Full-stack' | 'Frontend' | 'AI / Data'
+  year: string
+  blurb: string
+  description: string
+  problem: string
+  stack: string[]
+  highlights: string[]
+  accent: 'coral' | 'lime' | 'blue' | 'lilac' | 'sand'
+  visual?: ProjectVisualVariant
+  images?: ProjectImage[]
+  featured?: boolean
+  live?: string
+  repo?: string
+}
+
+export const projects: Project[] = [
+  {
+    id: 'medora',
+    title: 'Medora',
+    category: 'Full-stack',
+    year: '2026',
+    blurb: 'A patient-owned healthcare platform connecting patients, clinicians, and organisations.',
+    description:
+      'Medora is a patient-owned healthcare platform that connects patients, healthcare professionals, and organisations through secure health records, access control, and AI-assisted healthcare information. Three role-based workspaces sit on top of a responsive marketing site and a Supabase-backed data layer.',
+    problem:
+      'Healthcare data is fragmented across portals and organisations, while patients rarely control who sees what. Medora explores a patient-owned model where consent and access are visible at every step.',
+    stack: ['React 19', 'TypeScript', 'Vite', 'Tailwind CSS', 'Supabase'],
+    highlights: [
+      'Patient, professional, and organisation workspaces with role-specific routes.',
+      'Patient-controlled access requests, consent, records, and care-network flows.',
+      'Supabase data layer with migrations for records, memberships, and communication.',
+      'Responsive Tailwind v4 interface with reduced-motion support.',
+    ],
+    accent: 'coral',
+    visual: 'medora',
+    images: [
+      { src: medoraMain, alt: 'Medora healthcare platform landing page', label: 'Home' },
+      { src: medoraOverview, alt: 'Medora patient workspace overview', label: 'Workspace' },
+      { src: medoraMobile, alt: 'Medora mobile healthcare interface', label: 'Mobile' },
+    ],
+    featured: true,
+    live: 'https://mmedora.vercel.app/',
+    repo: 'https://github.com/Shobhangtavgamer/Medora',
+  },
+  {
+    id: 'resource-bridge',
+    title: 'Resource Bridge',
+    category: 'Full-stack',
+    year: '2026',
+    blurb: 'A transparent donation platform connecting donors with verified NGOs.',
+    description:
+      'Resource Bridge is a social-impact platform that connects donors with verified NGOs, making resource donation, collection, and distribution more transparent and accessible. Donors can list and track contributions while NGOs manage pickups and distributions from a dedicated dashboard.',
+    problem:
+      'Donation drives lose momentum when donors cannot see what happens after pickup. Resource Bridge makes the collection and distribution journey visible to donors, NGOs, and admins.',
+    stack: ['React', 'TypeScript', 'Tailwind CSS', 'Zustand', 'Express', 'Prisma', 'PostgreSQL'],
+    highlights: [
+      'Donor, NGO, and admin roles with tracked donation lifecycles.',
+      'NGO dashboards for pickups, available donations, and distributions.',
+      'Admin tools for user management, NGO verification, and reviews.',
+      'Category-led donation flow for books, clothes, toys, educational materials, and household items.',
+    ],
+    accent: 'lime',
+    images: [
+      { src: bridgeMain, alt: 'Resource Bridge donation platform interface', label: 'Platform' },
+      { src: bridgeDetail, alt: 'Resource Bridge donation category screen', label: 'Categories' },
+      { src: bridgeDetailAlt, alt: 'Resource Bridge NGO dashboard screen', label: 'Dashboard' },
+      { src: bridgeMark, alt: 'Resource Bridge project mark', label: 'Mark' },
+    ],
+    featured: true,
+    repo: 'https://github.com/Shobhangtavgamer/Resource_Bridge',
+  },
+  {
+    id: 'smart-celebrity-mirror',
+    title: 'Smart Celebrity Mirror',
+    category: 'Frontend',
+    year: '2026',
+    blurb: 'A browser-based vanity mirror that reads the room and hypes you up.',
+    description:
+      'Smart Celebrity Mirror turns a laptop or phone into a playful vanity mirror. It combines a live camera feed, smart ambient brightness, vanity lighting, voice compliments, and photo capture in a single browser experience.',
+    problem:
+      'Getting ready should not require a ring light and a second device. The experiment asks how much of a vanity experience can be delivered with just a camera, some CSS, and browser speech APIs.',
+    stack: ['HTML', 'CSS', 'JavaScript', 'Webcam API', 'Web Speech API'],
+    highlights: [
+      'Live mirror feed with a vanity-light frame and one-tap photo capture.',
+      'Smart ambient sensor that adjusts the scene based on room brightness.',
+      'Voice compliments powered by browser speech synthesis.',
+      'No framework or build step — one HTML page, one stylesheet, one script.',
+    ],
+    accent: 'lilac',
+    images: [
+      { src: mirrorMain, alt: 'Smart Celebrity Mirror vanity interface', label: 'Mirror' },
+      { src: mirrorDetail, alt: 'Smart Celebrity Mirror camera and lighting view', label: 'Lighting' },
+    ],
+    featured: true,
+  },
+  {
+    id: 'codertine',
+    title: 'CoderTine 7.0',
+    category: 'Frontend',
+    year: '2025',
+    blurb: 'A five-day coding festival, translated into a scroll-driven digital experience.',
+    description:
+      'CoderTine 7.0 is the event platform for a five-day build-break-debug-ship arc. The site carries the full schedule, event details, guides, and registration story with a bold editorial identity and zero heavy dependencies.',
+    problem:
+      'A dense, multi-day programme usually becomes a wall of text. The challenge was to make five events feel like one coherent story and keep the site fast on campus Wi-Fi.',
+    stack: ['React', 'TypeScript', 'Vite', 'CSS'],
+    highlights: [
+      'Hand-rolled hash router with deep links into every event and guide.',
+      'Scroll choreography, reveal system, and animated background built from scratch.',
+      'Data-driven event pages so content changes never touch layout code.',
+      'Sub-second first paint with no animation library and self-hosted display type.',
+    ],
+    accent: 'lime',
+    visual: 'codertine',
+    images: [
+      { src: codertineHome, alt: 'CoderTine 7.0 event platform homepage', label: 'Home' },
+      { src: codertineRoadmap, alt: 'CoderTine 7.0 five-event roadmap', label: 'Roadmap' },
+      { src: codertineGuide, alt: 'CoderTine 7.0 AI Build Lab guide', label: 'Guide' },
+    ],
+    live: 'https://codertine.vercel.app/',
+    repo: 'https://github.com/Shobhangtavgamer/Codertine',
+  },
+  {
+    id: 'supplysense',
+    title: 'SupplySense',
+    category: 'AI / Data',
+    year: '2025',
+    blurb: 'Inventory intelligence that tells you what to buy, hold, or move next.',
+    description:
+      'Built for the VoyageHack 4.0 inventory optimisation brief, SupplySense forecasts demand across suppliers and recommends reorder points, transfers, and safety stock with a human-readable rationale.',
+    problem:
+      'Teams drown in spreadsheets while stockouts and overstock happen at the same time. The product needed to turn messy supplier data into a small number of confident decisions.',
+    stack: ['Python', 'FastAPI', 'scikit-learn', 'React', 'PostgreSQL'],
+    highlights: [
+      'Demand forecasting with seasonality and supplier lead-time signals.',
+      'Recommendation engine for reorder points and safety stock.',
+      'Scenario simulator for promotions, delays, and demand shocks.',
+      'Explainable outputs so operators can trust the numbers.',
+    ],
+    accent: 'blue',
+    visual: 'supply',
+    repo: profile.github,
+  },
+  {
+    id: 'pulse',
+    title: 'Pulse',
+    category: 'AI / Data',
+    year: '2024',
+    blurb: 'A real-time health analytics cockpit for people who make care decisions.',
+    description:
+      'Pulse turns raw health metrics into a calm, readable dashboard. Trends, anomalies, and daily summaries are surfaced with careful hierarchy so the signal never gets lost in the chart noise.',
+    problem:
+      'Health dashboards tend to be either too clinical or too decorative. Pulse aims for the middle: trustworthy data, warm presentation, and a clear answer to "what changed?"',
+    stack: ['React', 'TypeScript', 'Vite', 'D3.js', 'REST'],
+    highlights: [
+      'Custom D3 visualisations tuned for small screens and screen readers.',
+      'Anomaly callouts with plain-language explanations.',
+      'Composable metric cards with saved views and date ranges.',
+      'Dark and light themes with contrast-tested palettes.',
+    ],
+    accent: 'lilac',
+    visual: 'pulse',
+    repo: profile.github,
+  },
+  {
+    id: 'ledgerly',
+    title: 'Ledgerly',
+    category: 'Full-stack',
+    year: '2024',
+    blurb: 'A small business command centre that replaces six spreadsheets.',
+    description:
+      'Ledgerly is an operations dashboard for small teams: invoices, expenses, inventory, and cash-flow in one place. The design leans on familiar patterns and fast keyboard flows instead of a steep learning curve.',
+    problem:
+      'Small teams do not need enterprise software, they need one honest source of truth. The product had to be legible on day one and flexible enough to grow.',
+    stack: ['React', 'Tailwind CSS', 'Node.js', 'PostgreSQL'],
+    highlights: [
+      'Role-aware dashboard with revenue, expense, and runway snapshots.',
+      'Bulk invoice actions and a keyboard-first command palette.',
+      'CSV import with validation and a forgiving error recovery flow.',
+      'Responsive layouts tested from 320px to widescreen.',
+    ],
+    accent: 'sand',
+    visual: 'ledger',
+    repo: profile.github,
+  },
+]
+
+export type Achievement = {
+  year: string
+  title: string
+  org: string
+  detail: string
+}
+
+export const achievements: Achievement[] = [
+  {
+    year: '2025',
+    title: 'Finalist — VoyageHack 4.0',
+    org: 'National hackathon',
+    detail: 'Built SupplySense, an explainable inventory optimisation engine, through a 36-hour sprint.',
+  },
+  {
+    year: '2025',
+    title: 'Event Technology Lead',
+    org: 'CoderTine 7.0',
+    detail: 'Owned the digital experience for a five-day coding festival spanning five events and multiple tracks.',
+  },
+  {
+    year: '2024 —',
+    title: '500+ DSA problems solved',
+    org: 'LeetCode · Codeforces · GFG',
+    detail: 'A daily practice habit across arrays, graphs, dynamic programming, and contest-style problem solving.',
+  },
+  {
+    year: '2024',
+    title: 'Top 5% — Campus Coding Contest',
+    org: 'University',
+    detail: 'Ranked in the top five percent of a timed, college-wide algorithm challenge.',
+  },
+  {
+    year: '2024 —',
+    title: '12 products shipped',
+    org: 'Independent work',
+    detail: 'From first sketch to production: healthcare, events, analytics, and internal tooling.',
+  },
+]
+
+export const githubStats = [
+  { value: '540+', label: 'Contributions', detail: 'last 12 months' },
+  { value: '24', label: 'Repositories', detail: 'public + private' },
+  { value: '12', label: 'Stars earned', detail: 'across projects' },
+  { value: '18', label: 'Day streak', detail: 'current run' },
+]
+
+export const contact = {
+  eyebrow: 'The next chapter',
+  headline: 'Have a problem worth making beautiful?',
+  copy:
+    'I am currently open to internships, full-time roles, and ambitious freelance work. If you are building something with real stakes, I would love to hear about it.',
+  availability: 'Available for select projects from Q1 2026',
+}
