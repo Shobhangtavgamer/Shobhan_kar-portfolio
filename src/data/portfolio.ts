@@ -57,7 +57,7 @@ export const stats = [
 
 export const about = {
   eyebrow: 'About me',
-  headline: 'Engineering is the craft. Design is the point of view.',
+  headline: 'Curiosity-driven. Purpose-built.',
   body:
     "I'm an engineering student at RGIT Mumbai, passionate about full-stack development, modern technologies, and building meaningful digital solutions. Beyond coding, I contribute to open-source, developer communities, hackathons, and college leadership.",
   principles: [
@@ -66,18 +66,21 @@ export const about = {
       title: 'Build with Purpose',
       copy: 'Solving real-world problems through technology.',
       accent: 'blue',
+      icon: 'Code',
     },
     {
       number: '02',
       title: 'Learn by Building',
       copy: 'Experimenting, developing, and continuously improving.',
       accent: 'lime',
+      icon: 'Zap',
     },
     {
       number: '03',
       title: 'Beyond Code',
       copy: 'Leadership, community contributions, and collaboration.',
       accent: 'coral',
+      icon: 'Users',
     },
   ],
   facts: [

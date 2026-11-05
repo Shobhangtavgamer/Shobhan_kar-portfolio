@@ -1,8 +1,15 @@
 import { about } from '../data/portfolio'
+import { Code, Users, Zap } from 'lucide-react'
 import { ArrowUpRight } from './Icons'
 import { Magnetic } from './Magnetic'
 import { Reveal } from './Reveal'
 import { SectionHeader } from './SectionHeader'
+
+const ICON_MAP: Record<string, React.ComponentType<any>> = {
+  Code,
+  Users,
+  Zap,
+}
 
 export function About() {
   return (
@@ -26,6 +33,7 @@ export function About() {
         />
 
         <div className="about__grid">
+          {/* LEFT SIDE — preserved exactly */}
           <Reveal className="about__visual">
             <div className="about__portrait" data-parallax="0.03">
               <div className="portrait__mesh" aria-hidden="true" />
@@ -57,31 +65,42 @@ export function About() {
             </dl>
           </Reveal>
 
+          {/* RIGHT SIDE — premium editorial redesign */}
           <div className="about__content">
-            <Reveal className="about__paragraph-wrap">
-              <p className="about__lead">{about.body}</p>
+            <Reveal className="about__lead-wrap">
+              <span className="about__label">01 / About</span>
+              <h2 className="about__headline">{about.headline}</h2>
+              <p className="about__intro">{about.body}</p>
             </Reveal>
 
-            <div className="about__principles">
-              {about.principles.map((principle, index) => (
-                <Reveal
-                  as="article"
-                  key={principle.number}
-                  className={`about__principle about__principle--${principle.accent}`}
-                  delay={index * 90}
-                >
-                  <span className="about__principle-number mono">{principle.number}</span>
-                  <h3 className="about__principle-title">{principle.title}</h3>
-                  <p className="about__principle-copy">{principle.copy}</p>
-                </Reveal>
-              ))}
+            <div className="about__bento">
+              {about.principles.map((principle, index) => {
+                const Icon = ICON_MAP[principle.icon]
+                return (
+                  <Reveal
+                    as="article"
+                    key={principle.number}
+                    className={`about__card about__card--${principle.accent}`}
+                    delay={index * 90}
+                  >
+                    <div className="about__card-icon">
+                      <Icon size={20} className="about__card-icon-svg" />
+                    </div>
+                    <h3 className="about__card-title">{principle.title}</h3>
+                    <p className="about__card-copy">{principle.copy}</p>
+                  </Reveal>
+                )
+              })}
             </div>
 
             <Reveal className="about__signature">
-              <p className="serif">Always building.</p>
+              <div className="about__signature-group">
+                <span className="about__signature-mark">—</span>
+                <p className="serif about__signature-text">Always building.</p>
+              </div>
               <Magnetic>
-                <a className="link-arrow" href="#contact">
-                  Start a conversation
+                <a className="about__signature-link link-arrow" href="#contact">
+                  Get in touch
                   <ArrowUpRight size={17} />
                 </a>
               </Magnetic>
