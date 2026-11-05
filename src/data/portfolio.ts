@@ -56,29 +56,27 @@ export const stats = [
 ]
 
 export const about = {
-  eyebrow: 'A little context',
+  eyebrow: 'About me',
   headline: 'Engineering is the craft. Design is the point of view.',
-  body: [
-    'I started out chasing the why behind how things work, then fell for the moment a hard problem becomes an obvious interface. Today I work across the stack, from data models and APIs to the last 8 pixels of a hover state.',
-    'Most of my work sits where clarity matters: healthcare journeys, event platforms, and operational tools. I care about fast feedback, honest copy, and software that respects the people using it.',
-  ],
+  body:
+    "I'm an engineering student at RGIT Mumbai, passionate about full-stack development, modern technologies, and building meaningful digital solutions. Beyond coding, I contribute to open-source, developer communities, hackathons, and college leadership.",
   principles: [
     {
       number: '01',
-      title: 'Clarity is a feature',
-      copy: 'The best interface is the one you do not have to think about. I remove friction before adding flourish.',
-      accent: 'lime',
-    },
-    {
-      number: '02',
-      title: 'Ship, then sharpen',
-      copy: 'Real usage beats perfect speculation. I build the smallest honest version, measure it, and iterate in public.',
+      title: 'Build with Purpose',
+      copy: 'Solving real-world problems through technology.',
       accent: 'blue',
     },
     {
+      number: '02',
+      title: 'Learn by Building',
+      copy: 'Experimenting, developing, and continuously improving.',
+      accent: 'lime',
+    },
+    {
       number: '03',
-      title: 'Details are the product',
-      copy: 'Motion, spacing, error states, empty states. The tiny decisions are what make software feel alive.',
+      title: 'Beyond Code',
+      copy: 'Leadership, community contributions, and collaboration.',
       accent: 'coral',
     },
   ],

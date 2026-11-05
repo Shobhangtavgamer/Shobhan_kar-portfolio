@@ -58,23 +58,21 @@ export function About() {
           </Reveal>
 
           <div className="about__content">
-            {about.body.map((paragraph, index) => (
-              <Reveal key={paragraph.slice(0, 24)} delay={index * 80} className="about__paragraph-wrap">
-                <p className="about__paragraph">{paragraph}</p>
-              </Reveal>
-            ))}
+            <Reveal className="about__paragraph-wrap">
+              <p className="about__lead">{about.body}</p>
+            </Reveal>
 
-            <div className="principles">
+            <div className="about__principles">
               {about.principles.map((principle, index) => (
                 <Reveal
                   as="article"
                   key={principle.number}
-                  className={`principle principle--${principle.accent}`}
+                  className={`about__principle about__principle--${principle.accent}`}
                   delay={index * 90}
                 >
-                  <span className="principle__number mono">{principle.number}</span>
-                  <h3>{principle.title}</h3>
-                  <p>{principle.copy}</p>
+                  <span className="about__principle-number mono">{principle.number}</span>
+                  <h3 className="about__principle-title">{principle.title}</h3>
+                  <p className="about__principle-copy">{principle.copy}</p>
                 </Reveal>
               ))}
             </div>
