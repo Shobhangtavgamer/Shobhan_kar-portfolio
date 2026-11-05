@@ -11,10 +11,16 @@ import codertineHome from '../upload/webp/codertine-2.webp'
 import codertineRoadmap from '../upload/webp/codertine-3.webp'
 import codertineGuide from '../upload/webp/codertine-1.webp'
 import keyboardImg from '../upload/virtual keyboard.png'
+import spotifyImg from '../upload/spotify command control.png'
 import sugarcane1 from '../upload/global sugarcane website (1).png'
 import sugarcane2 from '../upload/global sugarcane website (2).png'
 import sugarcane3 from '../upload/global sugarcane website (3).png'
 import sugarcane4 from '../upload/global sugarcane website (4).png'
+import blueMonitor1 from '../upload/blue mointer (1).png'
+import blueMonitor2 from '../upload/blue mointer (2).png'
+import blueMonitor3 from '../upload/blue mointer (3).png'
+import blueMonitor4 from '../upload/blue mointer (4).png'
+import blueMonitor5 from '../upload/blue mointer (5).png'
 
 export const profile = {
   name: 'Shobhan',
@@ -441,25 +447,6 @@ export const projects: Project[] = [
     repo: 'https://github.com/Shobhangtavgamer/Codertine',
   },
   {
-    id: 'ai-fund-flow-intelligence',
-    title: 'AI Fund Flow Intelligence',
-    category: 'AI / Data',
-    year: '2026',
-    blurb: 'AI-powered financial flow analysis and forecasting system.',
-    description:
-      'An AI-driven platform for analyzing and predicting fund flows. Leverages machine learning models to detect patterns, forecast trends, and provide actionable insights for financial decision-making.',
-    problem:
-      'Financial institutions and individuals struggle to predict cash flow patterns and detect anomalies in fund movements. Traditional tools lack predictive intelligence and real-time alerting.',
-    stack: ['Python', 'scikit-learn', 'Pandas', 'React', 'Node.js'],
-    highlights: [
-      'Machine learning models for fund flow prediction and anomaly detection.',
-      'Interactive dashboard for visualizing financial trends and patterns.',
-      'Real-time alerts for unusual fund flow patterns.',
-    ],
-    accent: 'blue',
-    status: 'ongoing',
-  },
-  {
     id: 'jalscan-bluemonitor',
     title: 'JalScan / BlueMonitor',
     category: 'AI / Data',
@@ -477,6 +464,13 @@ export const projects: Project[] = [
     ],
     accent: 'lime',
     status: 'experimental',
+    images: [
+      { src: blueMonitor1, alt: 'BlueMonitor hardware sensor setup', label: 'Hardware' },
+      { src: blueMonitor2, alt: 'BlueMonitor water quality dashboard', label: 'Dashboard' },
+      { src: blueMonitor3, alt: 'BlueMonitor sensor readings', label: 'Readings' },
+      { src: blueMonitor4, alt: 'BlueMonitor alert interface', label: 'Alerts' },
+      { src: blueMonitor5, alt: 'BlueMonitor system overview', label: 'Overview' },
+    ],
   },
   {
     id: 'global-sugarcane-trade',
@@ -543,6 +537,7 @@ export const projects: Project[] = [
     ],
     accent: 'lilac',
     status: 'ongoing',
+    images: [{ src: spotifyImg, alt: 'Spotify Commands voice interface', label: 'Spotify' }],
   },
   {
     id: 'student-carpooling',
