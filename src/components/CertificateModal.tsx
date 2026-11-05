@@ -84,7 +84,12 @@ export function CertificateModal({ certification, onClose }: CertificateModalPro
         </button>
 
         <div className={`cert-modal__media cert-modal__media--${certification.accent}`}>
-          <img src={certification.image} alt={certification.imageAlt} />
+          <img
+            src={certification.image}
+            alt={certification.imageAlt}
+            loading="lazy"
+            decoding="async"
+          />
         </div>
 
         <div className="cert-modal__content">

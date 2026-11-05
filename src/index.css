@@ -1466,7 +1466,7 @@ z-index: 3;
   aspect-ratio: 4 / 5;
   overflow: hidden;
   border-radius: var(--radius-xl);
-  background: var(--ink) url("./upload/ShobhanKar.png") center / cover no-repeat;
+  background: var(--ink) url("./upload/webp/shobhan-kar.webp") center / cover no-repeat;
   color: var(--paper);
   box-shadow: var(--shadow-lg);
   isolation: isolate;
@@ -4935,4 +4935,54 @@ z-index: 3;
   .certifications__bar {
     gap: 0.8rem;
   }
+}
+
+/* ---------- Lazy-loaded sections (performance) ---------- */
+
+.lazy-section-wrapper {
+  position: relative;
+  isolation: isolate;
+}
+
+.lazy-skeleton {
+  position: relative;
+  background: transparent;
+}
+
+.lazy-skeleton-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: clamp(1rem, 2vw, 2rem);
+  color: transparent;
+}
+
+.lazy-skeleton-line {
+  border-radius: 0.4rem;
+  background: linear-gradient(90deg, rgba(19, 18, 15, 0.06) 25%, rgba(19, 18, 15, 0.12) 50%, rgba(19, 18, 15, 0.06) 75%);
+  background-size: 200% 100%;
+  animation: skeletonPulse 1.6s ease-in-out infinite;
+}
+
+.lazy-skeleton-grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.lazy-skeleton-card {
+  border-radius: var(--radius-lg);
+  background: linear-gradient(90deg, rgba(19, 18, 15, 0.06) 25%, rgba(19, 18, 15, 0.12) 50%, rgba(19, 18, 15, 0.06) 75%);
+  background-size: 200% 100%;
+  animation: skeletonPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes skeletonPulse {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Ensure lazy section placeholder reserves space (CLS prevention) */
+.lazy-section-wrapper ~ * {
+  /* no-op: placeholder height comes from skeleton min-height */
 }

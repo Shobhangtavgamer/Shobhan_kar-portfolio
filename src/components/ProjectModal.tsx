@@ -98,7 +98,13 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
           aria-hidden={image ? undefined : true}
         >
           {image ? (
-            <img className="modal__image" src={image.src} alt={image.alt} />
+            <img
+              className="modal__image"
+              src={image.src}
+              alt={image.alt}
+              loading="lazy"
+              decoding="async"
+            />
           ) : project.visual ? (
             <ProjectVisual variant={project.visual} />
           ) : null}
