@@ -56,38 +56,35 @@ export const stats = [
 ]
 
 export const about = {
-  eyebrow: 'A little context',
+  eyebrow: 'About me',
   headline: 'Engineering is the craft. Design is the point of view.',
-  body: [
-    'I started out chasing the why behind how things work, then fell for the moment a hard problem becomes an obvious interface. Today I work across the stack, from data models and APIs to the last 8 pixels of a hover state.',
-    'Most of my work sits where clarity matters: healthcare journeys, event platforms, and operational tools. I care about fast feedback, honest copy, and software that respects the people using it.',
-  ],
-  principles: [
-    {
-      number: '01',
-      title: 'Clarity is a feature',
-      copy: 'The best interface is the one you do not have to think about. I remove friction before adding flourish.',
-      accent: 'lime',
-    },
-    {
-      number: '02',
-      title: 'Ship, then sharpen',
-      copy: 'Real usage beats perfect speculation. I build the smallest honest version, measure it, and iterate in public.',
-      accent: 'blue',
-    },
-    {
-      number: '03',
-      title: 'Details are the product',
-      copy: 'Motion, spacing, error states, empty states. The tiny decisions are what make software feel alive.',
-      accent: 'coral',
-    },
-  ],
-  facts: [
-    { label: 'Based in', value: 'India' },
-    { label: 'Focus', value: 'Full-stack + interaction' },
-    { label: 'Currently', value: 'Building in public' },
-    { label: 'Off-screen', value: 'Chess, film, long walks' },
-  ],
+  body:
+    'I am Shobhan, an engineering student at RGIT Mumbai passionate about software development, full-stack technologies, and building real-world solutions. I contribute to developer communities, open-source initiatives, technical events, and college leadership activities. Always building, always shipping.',
+  identity: {
+    items: [
+      {
+        key: 'developer',
+        title: 'Developer & Problem Solver',
+        copy: 'Turning complex problems into clean, shipping code across the stack.',
+        icon: 'Code',
+        accent: 'blue',
+      },
+      {
+        key: 'opensource',
+        title: 'Open-Source Contributor',
+        copy: 'Shipping public code, fixes, and documentation for developer tools.',
+        icon: 'GitBranch',
+        accent: 'lime',
+      },
+      {
+        key: 'community',
+        title: 'Community & Technical Leader',
+        copy: 'Leading tech events, hackathons, and campus engineering communities.',
+        icon: 'Award',
+        accent: 'coral',
+      },
+    ],
+  },
 }
 
 export type SkillGroup = {
