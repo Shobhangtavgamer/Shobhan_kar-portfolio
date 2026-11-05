@@ -9,6 +9,7 @@ import adobeHackathon from '../upload/webp/adobe.webp'
 import skillIndia from '../upload/webp/skill-india.webp'
 import campusCrew from '../upload/webp/campuscrew.webp'
 import contributor from '../upload/webp/contributor.webp'
+import sixSigma from '../upload/six sigma belt.png'
 
 export type Certification = {
   id: string
@@ -158,5 +159,16 @@ export const certifications: Certification[] = [
     image: contributor,
     imageAlt: 'Open source contributor mission badge',
     accent: 'lilac',
+  },
+  {
+    id: 'six-sigma-belt',
+    title: 'Six Sigma Belt',
+    issuer: 'Six Sigma Certification',
+    date: '2026',
+    detail: 'Certification in Six Sigma methodology for process improvement and quality management.',
+    category: 'Programming',
+    image: sixSigma,
+    imageAlt: 'Six Sigma Belt certificate',
+    accent: 'blue',
   },
 ]

@@ -10,6 +10,7 @@ import mirrorDetail from '../upload/webp/mirror-detail.webp'
 import codertineHome from '../upload/webp/codertine-2.webp'
 import codertineRoadmap from '../upload/webp/codertine-3.webp'
 import codertineGuide from '../upload/webp/codertine-1.webp'
+import keyboardImg from '../upload/virtual keyboard.png'
 
 export const profile = {
   name: 'Shobhan',
@@ -556,22 +557,23 @@ export const projects: Project[] = [
     status: 'completed',
   },
   {
-    id: 'ai-virtual-mouse',
-    title: 'AI Virtual Mouse',
+    id: 'ai-virtual-keyboard',
+    title: 'AI Virtual Keyboard',
     category: 'Frontend',
     year: '2025',
-    blurb: 'Hand-gesture controlled virtual mouse using computer vision.',
+    blurb: 'Hand-gesture controlled virtual keyboard using computer vision.',
     description:
-      'A contactless computer interaction system that uses hand gestures tracked via webcam to control the mouse cursor. Enables hands-free navigation and clicking.',
+      'A contactless typing system that uses hand gestures tracked via webcam to type on a virtual keyboard. Enables hands-free text input without physical keyboard contact.',
     problem:
-      'Traditional mouse interaction requires physical contact and can be inaccessible in certain situations. Gesture-based control provides a hands-free alternative.',
+      'Traditional keyboard interaction requires physical contact and can be inaccessible in certain situations. Gesture-based typing provides a hands-free alternative for text input.',
     stack: ['Python', 'OpenCV', 'MediaPipe', 'PyAutoGUI', 'NumPy'],
     highlights: [
       'Real-time hand tracking with 21 landmark detection.',
-      'Gesture-to-cursor mapping with smooth movement filtering.',
-      'Click and scroll gesture recognition.',
+      'Gesture-to-key mapping for virtual keyboard input.',
+      'Typing and special character gesture recognition.',
     ],
     accent: 'blue',
+    images: [{ src: keyboardImg, alt: 'AI Virtual Keyboard interface', label: 'Keyboard' }],
     status: 'experimental',
   },
   {
