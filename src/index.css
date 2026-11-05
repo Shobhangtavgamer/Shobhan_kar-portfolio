@@ -4999,4 +4999,172 @@ z-index: 3;
   }
 }
 
+/* ---------- Project status badges ---------- */
 
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.32rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+}
+
+.status-badge--completed {
+  background: rgba(217, 255, 87, 0.12);
+  border-color: rgba(217, 255, 87, 0.35);
+  color: var(--lime-deep);
+}
+
+.status-badge--ongoing {
+  background: rgba(61, 75, 255, 0.12);
+  border-color: rgba(61, 75, 255, 0.35);
+  color: var(--blue-deep);
+}
+
+.status-badge--experimental {
+  background: rgba(255, 90, 60, 0.12);
+  border-color: rgba(255, 90, 60, 0.35);
+  color: var(--coral-ink);
+}
+
+/* ---------- Education section ---------- */
+
+.edu__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.edu__card {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.5rem, 3vw, 2rem);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 0.45s var(--ease-out),
+    box-shadow 0.45s var(--ease-out),
+    border-color 0.45s var(--ease-out);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .edu__card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--line-strong);
+  }
+}
+
+.edu__card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.edu__card-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.edu__period {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.edu__type {
+  font-size: 0.62rem;
+  color: var(--blue);
+  border: 1px solid var(--blue);
+  padding: 0.18rem 0.5rem;
+  border-radius: 6px;
+}
+
+.edu__card--learning .edu__type {
+  color: var(--lime);
+  border-color: var(--lime);
+}
+
+.edu__card-title {
+  margin: 0;
+  font-size: clamp(1.3rem, 2vw, 1.6rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.edu__card-inst {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--ink-2);
+}
+
+.edu__card-desc {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.edu__focus {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.focus-chip {
+  padding: 0.35rem 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(252, 250, 245, 0.45);
+  font-size: 0.68rem;
+  color: var(--ink-2);
+}
+
+@media (max-width: 768px) {
+  .edu__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Updated project card filters ---------- */
+
+.filter {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  transition:
+    background-color 0.3s var(--ease-out),
+    color 0.3s var(--ease-out),
+    border-color 0.3s var(--ease-out);
+}
+
+.filter:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.filter.is-active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}

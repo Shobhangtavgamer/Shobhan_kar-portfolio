@@ -79,8 +79,8 @@ export function Hero() {
 
             <Reveal delay={160} className="hero__statement">
               <p>
-                Software engineer building <em>expressive</em>, reliable products where
-                craft meets clarity.
+                Computer Engineering student at <em>RGIT Mumbai</em>. Building full-stack products,
+                exploring AI/ML, and leading developer communities.
               </p>
             </Reveal>
 

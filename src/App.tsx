@@ -6,6 +6,7 @@ import { Certifications } from './components/Certifications'
 import { Contact } from './components/Contact'
 import { Cursor } from './components/Cursor'
 import { ExperienceSection } from './components/ExperienceSection'
+import { EducationSection } from './components/EducationSection'
 import { Footer } from './components/Footer'
 import { GitHubSection } from './components/GitHubSection'
 import { Hero } from './components/Hero'
@@ -28,6 +29,7 @@ const SECTION_IDS = [
   'about',
   'skills',
   'experience',
+  'education',
   'projects',
   'achievements',
   'certifications',
@@ -71,6 +73,7 @@ function App() {
         <About />
         <Skills />
         <ExperienceSection />
+        <EducationSection />
         <ProjectsSection onOpenProject={setSelectedProject} />
         <Achievements />
         <Certifications onOpenCertification={setSelectedCertificate} />

@@ -71,8 +71,8 @@ export function Skills() {
           <div className="skills__outro-copy">
             <span className="mono">Always learning</span>
             <p>
-              Currently going deeper into <em>AI engineering</em>, distributed systems, and the
-              art of making complex data feel simple.
+              Currently going deeper into <em>AI engineering</em>, computer vision, and
+              full-stack systems that serve real users.
             </p>
           </div>
           <Marquee items={techMarquee} className="skills__marquee" duration={34} reverse />

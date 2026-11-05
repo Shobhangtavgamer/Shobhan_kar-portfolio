@@ -15,13 +15,18 @@ export const profile = {
   name: 'Shobhan',
   firstName: 'Shobhan',
   initials: 'S',
-  role: 'Software Engineer',
-  roles: ['software engineer', 'full-stack developer', 'problem solver', 'interface craftsman'],
+  role: 'Software Developer',
+  roles: [
+    'software developer',
+    'aspiring AI/ML engineer',
+    'community leader',
+    'interface craftsman',
+  ],
   tagline: 'I build software that feels inevitable.',
   intro:
-    'Full-stack engineer with a soft spot for expressive interfaces. I turn complicated systems into products that are fast, useful, and genuinely nice to use.',
+    'Computer Engineering student at RGIT Mumbai. I build full-stack products, explore AI/ML, and lead developer communities. Currently focused on creating meaningful digital solutions.',
   availability: 'Open to internships & full-time roles',
-  location: 'India',
+  location: 'Mumbai, India',
   timezone: 'IST · UTC+5:30',
   email: 'karshobhan61@gmail.com',
   github: 'https://github.com/Shobhangtavgamer',
@@ -29,6 +34,31 @@ export const profile = {
   linkedin: 'https://www.linkedin.com/in/shobhan-kar-906bb3322/',
   resume: '#contact',
   copyright: '© 2026 Shobhan. Built with intent.',
+  education: {
+    degree: 'B.Tech, Computer Engineering',
+    institution: 'Rajiv Gandhi Institute of Technology (RGIT), Mumbai',
+    period: '2023 — 2027',
+  },
+  leadership: [
+    {
+      role: 'Web Head',
+      org: 'RGIT CodeCell',
+      period: '2024 — Present',
+      description: 'Leading the web development wing of the college coding club. Managing club website, workshops, and technical events.',
+    },
+    {
+      role: 'Training & Placement Coordinator',
+      org: 'RGIT Mumbai',
+      period: '2024 — Present',
+      description: 'Bridging students and industry. Coordinating placement drives, resume workshops, and corporate interactions.',
+    },
+    {
+      role: 'General Secretary',
+      org: 'RGIT Student Council',
+      period: '2025 — Present',
+      description: 'Student body leadership. Representing student interests, organizing college events, and managing student-faculty communication.',
+    },
+  ],
 }
 
 export const socials = [
@@ -41,6 +71,7 @@ export const navItems = [
   { label: 'About', href: '#about' },
   { label: 'Skills', href: '#skills' },
   { label: 'Experience', href: '#experience' },
+  { label: 'Education', href: '#education' },
   { label: 'Work', href: '#projects' },
   { label: 'Wins', href: '#achievements' },
   { label: 'Certs', href: '#certifications' },
@@ -49,17 +80,17 @@ export const navItems = [
 ]
 
 export const stats = [
-  { value: 3, suffix: '+', label: 'Years building' },
-  { value: 12, suffix: '', label: 'Products shipped' },
+  { value: 4, suffix: '+', label: 'Leadership roles' },
+  { value: 7, suffix: '+', label: 'Projects built' },
   { value: 500, suffix: '+', label: 'DSA problems solved' },
-  { value: 8, suffix: '', label: 'Hackathons & events' },
+  { value: 8, suffix: '+', label: 'Hackathons & events' },
 ]
 
 export const about = {
   eyebrow: 'About me',
   headline: 'Curiosity-driven. Purpose-built.',
   body:
-    "I'm an engineering student at RGIT Mumbai, passionate about full-stack development, modern technologies, and building meaningful digital solutions. Beyond coding, I contribute to open-source, developer communities, hackathons, and college leadership.",
+    "I'm a Computer Engineering student at RGIT Mumbai, passionate about full-stack development, modern technologies, and building meaningful digital solutions. I'm exploring AI/ML while contributing to open-source, developer communities, hackathons, and college leadership. As RGIT CodeCell Web Head, Training & Placement Coordinator, and General Secretary, I blend technical building with community leadership.",
   principles: [
     {
       number: '01',
@@ -84,10 +115,11 @@ export const about = {
     },
   ],
   facts: [
-    { label: 'Based in', value: 'India' },
-    { label: 'Focus', value: 'Full-stack + interaction' },
-    { label: 'Currently', value: 'Building in public' },
-    { label: 'Off-screen', value: 'Chess, film, long walks' },
+    { label: 'Based in', value: 'Mumbai, India' },
+    { label: 'College', value: 'RGIT Mumbai' },
+    { label: 'Degree', value: 'B.Tech Computer Engineering' },
+    { label: 'Currently', value: 'Exploring AI/ML + full-stack' },
+    { label: 'Leadership', value: 'CodeCell Web Head · T&P Coordinator · Gen. Secretary' },
   ],
 }
 
@@ -170,6 +202,48 @@ export type ExperienceItem = {
 
 export const experience: ExperienceItem[] = [
   {
+    period: '2025 — Present',
+    role: 'General Secretary',
+    org: 'RGIT Student Council · Mumbai',
+    type: 'community',
+    description:
+      'Student body leadership representing over 2,000 students. Organizing college events, managing student-faculty communication, and advocating for student interests across academics and campus life.',
+    highlights: [
+      'Led student council initiatives across academics, sports, and cultural events.',
+      'Bridge between student body and college administration for policy changes.',
+      'Organized tech fests, cultural programs, and student welfare activities.',
+    ],
+    stack: ['Leadership', 'Event Management', 'Public Speaking', 'Communication'],
+  },
+  {
+    period: '2024 — Present',
+    role: 'Web Head',
+    org: 'RGIT CodeCell · Mumbai',
+    type: 'community',
+    description:
+      'Leading the web development wing of the college coding club. Managing the club website, conducting web development workshops, and mentoring members in modern frontend and full-stack technologies.',
+    highlights: [
+      'Designed and maintained RGIT CodeCell website with React and Tailwind CSS.',
+      'Conducted weekly workshops on HTML, CSS, JavaScript, and React.',
+      'Mentored 30+ club members in web development and open-source contribution.',
+    ],
+    stack: ['React', 'TypeScript', 'Tailwind CSS', 'Vite', 'GitHub'],
+  },
+  {
+    period: '2024 — Present',
+    role: 'Training & Placement Coordinator',
+    org: 'RGIT Mumbai · Mumbai',
+    type: 'community',
+    description:
+      'Bridging students and industry opportunities. Coordinating placement drives, resume workshops, mock interviews, and corporate interactions to improve student employability.',
+    highlights: [
+      'Coordinated on-campus placement drives with 15+ visiting companies.',
+      'Organized resume-building workshops and mock interview sessions.',
+      'Liaised with HR teams and the college placement cell for student opportunities.',
+    ],
+    stack: ['Coordination', 'Communication', 'Event Planning', 'Networking'],
+  },
+  {
     period: '2024 — Present',
     role: 'Independent Software Engineer',
     org: 'Freelance · Remote',
@@ -213,17 +287,17 @@ export const experience: ExperienceItem[] = [
   },
   {
     period: '2023 — 2027',
-    role: 'B.Tech, Computer Science',
-    org: 'University · India',
+    role: 'B.Tech, Computer Engineering',
+    org: 'RGIT Mumbai · India',
     type: 'education',
     description:
-      'Coursework across algorithms, operating systems, DBMS, computer networks, and software engineering, paired with a lot of self-directed building.',
+      'Coursework across algorithms, operating systems, DBMS, computer networks, software engineering, and AI/ML fundamentals. Paired with self-directed building in full-stack and AI.',
     highlights: [
-      'Consistent top-quartile performance in core CS subjects.',
-      'Course projects spanning web, AI/ML, and systems fundamentals.',
-      'Active in coding clubs and peer learning sessions.',
+      'Core CS subjects: DSA, DBMS, OS, Computer Networks, Software Engineering.',
+      'AI/ML coursework: neural networks, computer vision, and NLP fundamentals.',
+      'Active in coding clubs, hackathons, and peer learning sessions.',
     ],
-    stack: ['DSA', 'DBMS', 'OS', 'Networks'],
+    stack: ['DSA', 'DBMS', 'OS', 'Networks', 'AI/ML'],
   },
 ]
 
@@ -249,6 +323,7 @@ export type Project = {
   visual?: ProjectVisualVariant
   images?: ProjectImage[]
   featured?: boolean
+  status?: 'completed' | 'ongoing' | 'experimental'
   live?: string
   repo?: string
 }
@@ -422,6 +497,120 @@ export const projects: Project[] = [
     accent: 'sand',
     visual: 'ledger',
     repo: profile.github,
+  },
+  {
+    id: 'ai-fund-flow-intelligence',
+    title: 'AI Fund Flow Intelligence',
+    category: 'AI / Data',
+    year: '2026',
+    blurb: 'AI-powered financial flow analysis and forecasting system.',
+    description:
+      'An AI-driven platform for analyzing and predicting fund flows. Leverages machine learning models to detect patterns, forecast trends, and provide actionable insights for financial decision-making.',
+    problem:
+      'Financial institutions and individuals struggle to predict cash flow patterns and detect anomalies in fund movements. Traditional tools lack predictive intelligence and real-time alerting.',
+    stack: ['Python', 'scikit-learn', 'Pandas', 'React', 'Node.js'],
+    highlights: [
+      'Machine learning models for fund flow prediction and anomaly detection.',
+      'Interactive dashboard for visualizing financial trends and patterns.',
+      'Real-time alerts for unusual fund flow patterns.',
+    ],
+    accent: 'blue',
+    status: 'ongoing',
+  },
+  {
+    id: 'jalscan-bluemonitor',
+    title: 'JalScan / BlueMonitor',
+    category: 'AI / Data',
+    year: '2026',
+    blurb: 'Water quality monitoring system with AI-powered anomaly detection.',
+    description:
+      'A water quality monitoring solution that uses sensor data and AI to detect contamination and track water quality parameters in real time. Provides alerts and analytics for environmental monitoring.',
+    problem:
+      'Water contamination often goes undetected until it becomes a health hazard. Existing monitoring systems lack real-time AI-powered analysis and proactive alerting.',
+    stack: ['Python', 'TensorFlow', 'React', 'MQTT', 'PostgreSQL'],
+    highlights: [
+      'Real-time water quality parameter tracking.',
+      'AI-powered anomaly detection for contamination events.',
+      'Alert system for threshold breaches and quality degradation.',
+    ],
+    accent: 'lime',
+    status: 'experimental',
+  },
+  {
+    id: 'animal-classification',
+    title: 'Animal Classification',
+    category: 'AI / Data',
+    year: '2025',
+    blurb: 'Computer vision model for classifying animal species from images.',
+    description:
+      'A deep learning-based image classification system that identifies animal species from photographs. Built for wildlife monitoring and educational purposes.',
+    problem:
+      'Manual identification of animal species from images is time-consuming and error-prone. Automated classification can assist researchers, educators, and wildlife enthusiasts.',
+    stack: ['Python', 'TensorFlow', 'Keras', 'OpenCV', 'NumPy'],
+    highlights: [
+      'Convolutional neural network for image classification.',
+      'Training pipeline with data augmentation and transfer learning.',
+      'Web interface for uploading and classifying animal images.',
+    ],
+    accent: 'coral',
+    status: 'completed',
+  },
+  {
+    id: 'ai-virtual-mouse',
+    title: 'AI Virtual Mouse',
+    category: 'Frontend',
+    year: '2025',
+    blurb: 'Hand-gesture controlled virtual mouse using computer vision.',
+    description:
+      'A contactless computer interaction system that uses hand gestures tracked via webcam to control the mouse cursor. Enables hands-free navigation and clicking.',
+    problem:
+      'Traditional mouse interaction requires physical contact and can be inaccessible in certain situations. Gesture-based control provides a hands-free alternative.',
+    stack: ['Python', 'OpenCV', 'MediaPipe', 'PyAutoGUI', 'NumPy'],
+    highlights: [
+      'Real-time hand tracking with 21 landmark detection.',
+      'Gesture-to-cursor mapping with smooth movement filtering.',
+      'Click and scroll gesture recognition.',
+    ],
+    accent: 'blue',
+    status: 'experimental',
+  },
+  {
+    id: 'raju-ai-assistant',
+    title: 'Raju AI Assistant',
+    category: 'AI / Data',
+    year: '2025',
+    blurb: 'Personal AI assistant with voice interaction and task automation.',
+    description:
+      'An AI-powered personal assistant that combines voice recognition, natural language processing, and task automation. Helps with reminders, information lookup, and daily task management.',
+    problem:
+      'Managing daily tasks and information retrieval requires multiple apps and manual effort. A unified AI assistant can streamline personal productivity.',
+    stack: ['Python', 'OpenAI API', 'SpeechRecognition', 'pyttsx3', 'Flask'],
+    highlights: [
+      'Voice-activated command processing.',
+      'Natural language understanding for task execution.',
+      'Integration with calendar, email, and web services.',
+    ],
+    accent: 'lilac',
+    status: 'ongoing',
+  },
+  {
+    id: 'student-carpooling',
+    title: 'Student Carpooling',
+    category: 'Full-stack',
+    year: '2025',
+    blurb: 'Campus ride-sharing platform connecting students for shared commutes.',
+    description:
+      'A full-stack web application that connects students traveling similar routes for carpooling. Reduces transportation costs and campus traffic while promoting sustainable commuting.',
+    problem:
+      'Students commuting to campus face high transportation costs and limited options. Carpooling can reduce expenses and environmental impact but lacks a dedicated coordination platform.',
+    stack: ['React', 'Node.js', 'Express', 'MongoDB', 'Tailwind CSS'],
+    highlights: [
+      'Route matching algorithm for finding compatible carpool partners.',
+      'Real-time seat availability and booking system.',
+      'User profiles with ratings and safety verification.',
+    ],
+    accent: 'blue',
+    status: 'completed',
   },
 ]
 

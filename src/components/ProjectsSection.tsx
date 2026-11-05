@@ -77,6 +77,11 @@ export function ProjectsSection({ onOpenProject }: ProjectsSectionProps) {
                 <div className="project-card__meta mono">
                   <span>{project.category}</span>
                   <span>{project.year}</span>
+                  {project.status && (
+                    <span className={`status-badge status-${project.status}`}>
+                      {project.status.charAt(0).toUpperCase() + project.status.slice(1)}
+                    </span>
+                  )}
                 </div>
                 <div className="project-card__title-row">
                   <h3>{project.title}</h3>
