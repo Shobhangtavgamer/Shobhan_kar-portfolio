@@ -13,8 +13,8 @@ type ProjectsSectionProps = {
 }
 
 // Card layout constants
-const CARD_W = 320
-const CARD_GAP = 24
+const CARD_W = 360
+const CARD_GAP = 32
 
 export function ProjectsSection({ onOpenProject }: ProjectsSectionProps) {
   const [filter, setFilter] = useState<Filter>('All')
@@ -32,7 +32,7 @@ export function ProjectsSection({ onOpenProject }: ProjectsSectionProps) {
 
   const VIEW_W = typeof window !== 'undefined' ? window.innerWidth : 800
   const isMobile = VIEW_W < 768
-  const cardW = isMobile ? 270 : CARD_W
+  const cardW = isMobile ? 290 : CARD_W
   const step = cardW + CARD_GAP
 
   const scrollToIndex = useCallback(
@@ -107,12 +107,12 @@ export function ProjectsSection({ onOpenProject }: ProjectsSectionProps) {
           titleId="projects-title"
           title={
             <>
-              Products with a <em>point of view</em>.
+              Editorial <em>work</em>
             </>
           }
           aside={
             <div className="projects__filter-wrap">
-              <span className="mono projects__filter-label">Filter by discipline</span>
+              <span className="mono projects__filter-label">Discipline</span>
               <div className="projects__filters" role="group" aria-label="Filter projects">
                 {filters.map((item) => (
                   <button
@@ -263,9 +263,7 @@ export function ProjectsSection({ onOpenProject }: ProjectsSectionProps) {
 
         {visible.length > 0 && (
           <p className="projects__hint">
-            {isMobile
-              ? 'Swipe to browse projects'
-              : 'Scroll or drag to browse &middot; Click a card to explore'}
+            {isMobile ? 'Swipe to browse projects' : 'Scroll or drag to browse &middot; Click a card to explore'}
           </p>
         )}
       </div>
