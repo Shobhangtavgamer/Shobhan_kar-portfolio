@@ -13,7 +13,7 @@ type ProjectsSectionProps = {
 }
 
 // Card layout constants
-const CARD_W = 340
+const CARD_W = 320
 const CARD_GAP = 24
 
 export function ProjectsSection({ onOpenProject }: ProjectsSectionProps) {
@@ -32,26 +32,26 @@ export function ProjectsSection({ onOpenProject }: ProjectsSectionProps) {
 
   const VIEW_W = typeof window !== 'undefined' ? window.innerWidth : 800
   const isMobile = VIEW_W < 768
+  const cardW = isMobile ? 270 : CARD_W
+  const step = cardW + CARD_GAP
 
   const scrollToIndex = useCallback(
     (index: number) => {
       const el = sliderRef.current
       if (!el) return
-      const step = isMobile ? 284 : CARD_W + CARD_GAP
       const target = Math.max(0, Math.min(index, visible.length - 1)) * step
       el.scrollTo({ left: target, behavior: 'smooth' })
       setActiveIndex(index)
     },
-    [isMobile, visible.length],
+    [isMobile, visible.length, step],
   )
 
   const syncActiveIndex = useCallback(() => {
     const el = sliderRef.current
     if (!el) return
-    const step = isMobile ? 284 : CARD_W + CARD_GAP
     const newIndex = Math.round(el.scrollLeft / step)
     setActiveIndex(Math.max(0, Math.min(newIndex, visible.length - 1)))
-  }, [isMobile, visible.length])
+  }, [step, visible.length])
 
   const handleWheel = useCallback(
     (e: React.WheelEvent) => {
@@ -138,7 +138,7 @@ export function ProjectsSection({ onOpenProject }: ProjectsSectionProps) {
             disabled={activeIndex === 0}
             onClick={() => scrollToIndex(activeIndex - 1)}
           >
-            <ArrowLeft size={20} />
+            <ArrowLeft size={18} />
           </button>
 
           <div
@@ -152,6 +152,7 @@ export function ProjectsSection({ onOpenProject }: ProjectsSectionProps) {
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
+            onScroll={syncActiveIndex}
           >
             {visible.map((project, index) => {
               const isActive = index === activeIndex
@@ -173,7 +174,7 @@ export function ProjectsSection({ onOpenProject }: ProjectsSectionProps) {
                     ) : project.visual ? (
                       <ProjectVisual variant={project.visual} />
                     ) : null}
-                    <div className="project-card__overlay" />
+                    <div className="project-card__badge-ring" />
                   </div>
                   <div className="project-card__body">
                     <div className="project-card__meta">
@@ -241,7 +242,7 @@ export function ProjectsSection({ onOpenProject }: ProjectsSectionProps) {
             disabled={activeIndex >= visible.length - 1}
             onClick={() => scrollToIndex(activeIndex + 1)}
           >
-            <ArrowRight size={20} />
+            <ArrowRight size={18} />
           </button>
         </div>
 
