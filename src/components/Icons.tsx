@@ -147,6 +147,14 @@ export function Brain({ className, size = 24 }: IconProps) {
   )
 }
 
+export function ArrowRight({ className, size = 20 }: IconProps) {
+  return (
+    <svg className={className} width={size} height={size} viewBox="0 0 24 24" {...base}>
+      <path d="M5 12h14M11 18l6-6-6-6" />
+    </svg>
+  )
+}
+
 export function Spark({ className, size = 20 }: IconProps) {
   return (
     <svg className={className} width={size} height={size} viewBox="0 0 24 24" {...base}>
