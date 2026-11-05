@@ -216,7 +216,7 @@ Build the project with base path configured in `vite.config.ts`, then push the `
 ## 👤 Author
 
 **Shobhan Kar**
-- 🌐 **Portfolio / Live Site:** [shobhan.dev](https://mmedora.vercel.app/)
+- 🌐 **Portfolio / Live Site:** [shobhan.dev](https://shobhan-kar-portfolio.antideploy.app/)
 - 💻 **GitHub:** [@Shobhangtavgamer](https://github.com/Shobhangtavgamer)
 - 💼 **LinkedIn:** [Shobhan Kar](https://www.linkedin.com/in/shobhan-kar-906bb3322/)
 - 📧 **Email:** [karshobhan61@gmail.com](mailto:karshobhan61@gmail.com)
