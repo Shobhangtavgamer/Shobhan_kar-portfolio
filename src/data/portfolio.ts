@@ -539,25 +539,6 @@ export const projects: Project[] = [
     status: 'ongoing',
     images: [{ src: spotifyImg, alt: 'Spotify Commands voice interface', label: 'Spotify' }],
   },
-  {
-    id: 'student-carpooling',
-    title: 'Student Carpooling',
-    category: 'Full-stack',
-    year: '2025',
-    blurb: 'Campus ride-sharing platform connecting students for shared commutes.',
-    description:
-      'A full-stack web application that connects students traveling similar routes for carpooling. Reduces transportation costs and campus traffic while promoting sustainable commuting.',
-    problem:
-      'Students commuting to campus face high transportation costs and limited options. Carpooling can reduce expenses and environmental impact but lacks a dedicated coordination platform.',
-    stack: ['React', 'Node.js', 'Express', 'MongoDB', 'Tailwind CSS'],
-    highlights: [
-      'Route matching algorithm for finding compatible carpool partners.',
-      'Real-time seat availability and booking system.',
-      'User profiles with ratings and safety verification.',
-    ],
-    accent: 'blue',
-    status: 'completed',
-  },
 ]
 
 export type Achievement = {
