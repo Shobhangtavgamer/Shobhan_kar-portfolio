@@ -11,6 +11,10 @@ import codertineHome from '../upload/webp/codertine-2.webp'
 import codertineRoadmap from '../upload/webp/codertine-3.webp'
 import codertineGuide from '../upload/webp/codertine-1.webp'
 import keyboardImg from '../upload/virtual keyboard.png'
+import sugarcane1 from '../upload/global sugarcane website (1).png'
+import sugarcane2 from '../upload/global sugarcane website (2).png'
+import sugarcane3 from '../upload/global sugarcane website (3).png'
+import sugarcane4 from '../upload/global sugarcane website (4).png'
 
 export const profile = {
   name: 'Shobhan',
@@ -460,14 +464,14 @@ export const projects: Project[] = [
     title: 'JalScan / BlueMonitor',
     category: 'AI / Data',
     year: '2026',
-    blurb: 'Water quality monitoring system with AI-powered anomaly detection.',
+    blurb: 'Water quality monitoring — hardware + software system.',
     description:
-      'A water quality monitoring solution that uses sensor data and AI to detect contamination and track water quality parameters in real time. Provides alerts and analytics for environmental monitoring.',
+      'A water quality monitoring solution combining IoT hardware sensors with AI-powered software. Hardware sensors collect real-time water quality parameters, while the software platform uses AI to detect contamination and track water quality with alerts and analytics for environmental monitoring.',
     problem:
-      'Water contamination often goes undetected until it becomes a health hazard. Existing monitoring systems lack real-time AI-powered analysis and proactive alerting.',
-    stack: ['Python', 'TensorFlow', 'React', 'MQTT', 'PostgreSQL'],
+      'Water contamination often goes undetected until it becomes a health hazard. Existing monitoring systems lack real-time AI-powered analysis and proactive alerting, and many lack integrated hardware-software solutions.',
+    stack: ['Python', 'TensorFlow', 'React', 'MQTT', 'PostgreSQL', 'Arduino', 'C++'],
     highlights: [
-      'Real-time water quality parameter tracking.',
+      'IoT hardware sensors for real-time water quality parameter collection.',
       'AI-powered anomaly detection for contamination events.',
       'Alert system for threshold breaches and quality degradation.',
     ],
@@ -494,6 +498,12 @@ export const projects: Project[] = [
     status: 'completed',
     live: 'https://global-sugarcane-trade.vercel.app/',
     repo: 'https://github.com/Shobhangtavgamer/Global_sugarcane_Trade',
+    images: [
+      { src: sugarcane1, alt: 'Global Sugarcane Trade platform homepage', label: 'Home' },
+      { src: sugarcane2, alt: 'Global Sugarcane Trade marketplace view', label: 'Marketplace' },
+      { src: sugarcane3, alt: 'Global Sugarcane Trade product listing', label: 'Product' },
+      { src: sugarcane4, alt: 'Global Sugarcane Trade dashboard', label: 'Dashboard' },
+    ],
   },
   {
     id: 'ai-virtual-keyboard',
