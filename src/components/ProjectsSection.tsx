@@ -5,98 +5,183 @@ import { ProjectVisual } from './ProjectVisual'
 import { SectionHeader } from './SectionHeader'
 
 type Filter = 'All' | Project['category']
-
 const filters: Filter[] = ['All', 'Full-stack', 'Frontend', 'AI / Data']
+
+// 3D carousel constants — mirrors the Framer ServiceCarousel3D layout
+const CARD_DEPTH = 460
+const AUTOPLAY_MS = 4000
+
+const LIGHT_ACCENTS = new Set<Project['accent']>(['lime', 'lilac', 'sand'])
+
+function tagInlineStyles(accent: Project['accent']) {
+  return {
+    background: `var(--${accent})`,
+    color: LIGHT_ACCENTS.has(accent) ? 'var(--ink)' : '#fff',
+  } as React.CSSProperties
+}
+
+function linkInlineColor(accent: Project['accent']): string {
+  return LIGHT_ACCENTS.has(accent) ? 'var(--ink)' : `var(--${accent})`
+}
 
 type ProjectsSectionProps = {
   onOpenProject: (project: Project) => void
 }
 
-// Card layout constants
-const CARD_W = 360
-const CARD_GAP = 32
-
 export function ProjectsSection({ onOpenProject }: ProjectsSectionProps) {
   const [filter, setFilter] = useState<Filter>('All')
   const [activeIndex, setActiveIndex] = useState(0)
-  const [isDragging, setIsDragging] = useState(false)
-  const sliderRef = useRef<HTMLDivElement>(null)
-  const dragRef = useRef({ x: 0, scrollLeft: 0 })
+  const [isPaused, setIsPaused] = useState(false)
+  const [cumulativeRotation, setCumulativeRotation] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
+  const [reducedMotion, setReducedMotion] = useState(false)
+
+  const rotatorRef = useRef<HTMLDivElement>(null)
 
   const visible = filter === 'All' ? projects : projects.filter((p) => p.category === filter)
+  const totalCards = visible.length
+  const anglePerCard = totalCards > 0 ? 360 / totalCards : 0
+  const faceAngles = Array.from({ length: totalCards }, (_, i) => i * anglePerCard)
 
-  // Reset to first card when filter changes
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    setReducedMotion(mq.matches)
+    const onChange = () => setReducedMotion(mq.matches)
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [])
+
+  // Reset the carousel when the filtered set changes
   useEffect(() => {
     setActiveIndex(0)
+    setCumulativeRotation(0)
   }, [filter])
 
-  const VIEW_W = typeof window !== 'undefined' ? window.innerWidth : 800
-  const isMobile = VIEW_W < 768
-  const cardW = isMobile ? 290 : CARD_W
-  const step = cardW + CARD_GAP
+  // Auto-rotation — pauses on hover and under reduced motion
+  useEffect(() => {
+    if (reducedMotion || isPaused || totalCards <= 1) return
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => {
+        const next = (prev + 1) % totalCards
+        setCumulativeRotation((r) => r - anglePerCard)
+        return next
+      })
+    }, AUTOPLAY_MS)
+    return () => clearInterval(timer)
+  }, [isPaused, reducedMotion, totalCards, anglePerCard])
 
-  const scrollToIndex = useCallback(
-    (index: number) => {
-      const el = sliderRef.current
-      if (!el) return
-      const target = Math.max(0, Math.min(index, visible.length - 1)) * step
-      el.scrollTo({ left: target, behavior: 'smooth' })
-      setActiveIndex(index)
+  const goTo = useCallback(
+    (targetIndex: number) => {
+      if (totalCards <= 1) return
+      setActiveIndex((prev) => {
+        // Rotate the shortest way around the cylinder
+        let diff = targetIndex - prev
+        if (diff > totalCards / 2) diff -= totalCards
+        if (diff < -totalCards / 2) diff += totalCards
+        setCumulativeRotation((r) => r - diff * anglePerCard)
+        return targetIndex
+      })
     },
-    [isMobile, visible.length, step],
+    [totalCards, anglePerCard],
   )
 
-  const syncActiveIndex = useCallback(() => {
-    const el = sliderRef.current
-    if (!el) return
-    const newIndex = Math.round(el.scrollLeft / step)
-    setActiveIndex(Math.max(0, Math.min(newIndex, visible.length - 1)))
-  }, [step, visible.length])
+  const goPrev = useCallback(() => {
+    if (totalCards <= 1) return
+    setActiveIndex((prev) => {
+      setCumulativeRotation((r) => r + anglePerCard)
+      return (prev - 1 + totalCards) % totalCards
+    })
+  }, [totalCards, anglePerCard])
 
-  const handleWheel = useCallback(
-    (e: React.WheelEvent) => {
-      if (e.deltaY === 0) return
-      e.preventDefault()
-      const el = sliderRef.current
-      if (!el) return
-      el.scrollBy({ left: e.deltaY, behavior: 'smooth' })
-    },
-    [],
+  const goNext = useCallback(() => {
+    if (totalCards <= 1) return
+    setActiveIndex((prev) => {
+      setCumulativeRotation((r) => r - anglePerCard)
+      return (prev + 1) % totalCards
+    })
+  }, [totalCards, anglePerCard])
+
+  const activeProject = visible[activeIndex]
+  const activeAccent = activeProject?.accent ?? 'blue'
+  const navContrast = LIGHT_ACCENTS.has(activeAccent) ? 'var(--ink)' : '#fff'
+
+  const handleCardClick = (event: React.MouseEvent, project: Project) => {
+    const hitLink = (event.target as Element | null)?.closest('a, button')
+    if (hitLink) return
+    onOpenProject(project)
+  }
+
+  const handleCardKeyDown = (event: React.KeyboardEvent, project: Project) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      onOpenProject(project)
+    }
+  }
+
+  const headerAside = (
+    <div className="projects__filter-wrap">
+      <span className="mono projects__filter-label">Discipline</span>
+      <div className="projects__filters" role="group" aria-label="Filter projects">
+        {filters.map((item) => (
+          <button
+            key={item}
+            type="button"
+            className={`filter${filter === item ? ' is-active' : ''}`}
+            aria-pressed={filter === item}
+            onClick={() => setFilter(item)}
+          >
+            {item}
+          </button>
+        ))}
+      </div>
+    </div>
   )
 
-  const handleMouseDown = useCallback((e: React.MouseEvent) => {
-    setIsDragging(true)
-    dragRef.current = { x: e.clientX, scrollLeft: sliderRef.current?.scrollLeft ?? 0 }
-  }, [])
+  if (isMobile) {
+    return (
+      <section id="projects" className="section projects" aria-labelledby="projects-title">
+        <div className="container">
+          <SectionHeader
+            index="04"
+            eyebrow="Selected work"
+            titleId="projects-title"
+            title={
+              <>
+                Editorial <em>work</em>
+              </>
+            }
+            aside={headerAside}
+          />
 
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      if (!isDragging || !sliderRef.current) return
-      e.preventDefault()
-      const dx = e.clientX - dragRef.current.x
-      sliderRef.current.scrollLeft = dragRef.current.scrollLeft - dx
-    },
-    [isDragging],
-  )
+          <div className="projects__stack">
+            {visible.map((project) => (
+              <article
+                key={project.id}
+                className={`project-card project-card--mobile`}
+                onClick={(event) => handleCardClick(event, project)}
+                onKeyDown={(event) => handleCardKeyDown(event, project)}
+                role="button"
+                tabIndex={0}
+                aria-label={`Explore ${project.title}`}
+                style={{ '--accent': `var(--${project.accent})` } as React.CSSProperties}
+              >
+                <ProjectCardContent project={project} />
+              </article>
+            ))}
+          </div>
 
-  const handleMouseUp = useCallback(() => setIsDragging(false), [])
-
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    setIsDragging(true)
-    dragRef.current = { x: e.touches[0].clientX, scrollLeft: sliderRef.current?.scrollLeft ?? 0 }
-  }, [])
-
-  const handleTouchMove = useCallback((e: React.TouchEvent) => {
-    if (!isDragging || !sliderRef.current) return
-    e.preventDefault()
-    const dx = e.touches[0].clientX - dragRef.current.x
-    sliderRef.current.scrollLeft = dragRef.current.scrollLeft - dx
-  }, [isDragging])
-
-  const handleTouchEnd = useCallback(() => {
-    setIsDragging(false)
-    syncActiveIndex()
-  }, [syncActiveIndex])
+          <p className="projects__hint">Tap a card to explore a project</p>
+        </div>
+      </section>
+    )
+  }
 
   return (
     <section id="projects" className="section projects" aria-labelledby="projects-title">
@@ -110,163 +195,169 @@ export function ProjectsSection({ onOpenProject }: ProjectsSectionProps) {
               Editorial <em>work</em>
             </>
           }
-          aside={
-            <div className="projects__filter-wrap">
-              <span className="mono projects__filter-label">Discipline</span>
-              <div className="projects__filters" role="group" aria-label="Filter projects">
-                {filters.map((item) => (
-                  <button
-                    key={item}
-                    type="button"
-                    className={`filter${filter === item ? ' is-active' : ''}`}
-                    aria-pressed={filter === item}
-                    onClick={() => setFilter(item)}
-                  >
-                    {item}
-                  </button>
-                ))}
-              </div>
-            </div>
-          }
+          aside={headerAside}
         />
 
-        <div className="projects__slider-wrap">
-          <button
-            type="button"
-            className={`slider__nav slider__nav--prev ${activeIndex === 0 ? 'is-disabled' : ''}`}
-            aria-label="Previous project"
-            disabled={activeIndex === 0}
-            onClick={() => scrollToIndex(activeIndex - 1)}
-          >
-            <ArrowLeft size={18} />
-          </button>
+        <div
+          className="projects__carousel-wrap"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          <div className="projects__stage">
+            <div
+              ref={rotatorRef}
+              className={`projects__rotator${reducedMotion ? ' projects__rotator--reduced' : ''}`}
+              style={{ transform: `rotateY(${cumulativeRotation}deg)` }}
+            >
+              {faceAngles.map((angle, i) => {
+                const project = visible[i]
+                const isActive = i === activeIndex
+                return (
+                  <article
+                    key={project.id}
+                    className={`project-card${isActive ? ' is-active' : ''}`}
+                    onClick={(event) => handleCardClick(event, project)}
+                    onKeyDown={(event) => handleCardKeyDown(event, project)}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`Explore ${project.title}`}
+                    style={{ '--accent': `var(--${project.accent})` } as React.CSSProperties}
+                  >
+                    <div
+                      className="project-card__face"
+                      style={{ transform: `rotateY(${angle}deg) translateZ(${CARD_DEPTH}px)` }}
+                    >
+                      <ProjectCardContent project={project} />
+                    </div>
+                  </article>
+                )
+              })}
+            </div>
 
-          <div
-            ref={sliderRef}
-            className={`projects__slider ${isDragging ? 'is-dragging' : ''}`}
-            onWheel={handleWheel}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseUp}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-            onScroll={syncActiveIndex}
-          >
-            {visible.map((project, index) => {
-              const isActive = index === activeIndex
+            <button
+              type="button"
+              className="projects__nav projects__nav--prev"
+              aria-label="Previous project"
+              disabled={totalCards <= 1}
+              onClick={goPrev}
+              style={{
+                '--nav-accent': `var(--${activeAccent})`,
+                '--nav-accent-contrast': navContrast,
+              } as React.CSSProperties}
+            >
+              <ArrowLeft size={16} />
+            </button>
+
+            <button
+              type="button"
+              className="projects__nav projects__nav--next"
+              aria-label="Next project"
+              disabled={totalCards <= 1}
+              onClick={goNext}
+              style={{
+                '--nav-accent': `var(--${activeAccent})`,
+                '--nav-accent-contrast': navContrast,
+              } as React.CSSProperties}
+            >
+              <ArrowRight size={16} />
+            </button>
+          </div>
+
+          <div className="projects__dots" role="group" aria-label="Project carousel">
+            {faceAngles.map((_, i) => {
+              const isActive = i === activeIndex
               return (
-                <article
-                  key={project.id}
-                  className={`project-card project-card--${project.accent} ${isActive ? 'is-active' : ''}`}
-                  onClick={() => onOpenProject(project)}
-                >
-                  <div className="project-card__visual">
-                    {project.images?.[0] ? (
-                      <img
-                        className="project-card__image"
-                        src={project.images[0].src}
-                        alt={project.images[0].alt || project.title}
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    ) : project.visual ? (
-                      <ProjectVisual variant={project.visual} />
-                    ) : null}
-                    <div className="project-card__badge-ring" />
-                  </div>
-                  <div className="project-card__body">
-                    <div className="project-card__meta">
-                      <span className="mono">{project.category}</span>
-                      <span className="mono">{project.year}</span>
-                      {project.status && (
-                        <span className={`status-badge status-${project.status}`}>
-                          {project.status.charAt(0).toUpperCase() + project.status.slice(1)}
-                        </span>
-                      )}
-                    </div>
-                    <div className="project-card__title-row">
-                      <h3>{project.title}</h3>
-                      <span className="project-card__arrow" aria-hidden="true">
-                        <ArrowUpRight size={16} />
-                      </span>
-                    </div>
-                    <p className="project-card__blurb">{project.blurb}</p>
-                    <ul className="chips" aria-label={`${project.title} stack`}>
-                      {project.stack.slice(0, 4).map((tech) => (
-                        <li className="chip chip--small" key={tech}>
-                          {tech}
-                        </li>
-                      ))}
-                      {project.stack.length > 4 ? (
-                        <li className="chip chip--small chip--muted">
-                          +{project.stack.length - 4}
-                        </li>
-                      ) : null}
-                    </ul>
-                    <div className="project-card__actions">
-                      {project.repo && (
-                        <a
-                          href={project.repo}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="project-card__link"
-                        >
-                          <Github size={14} /> Source
-                        </a>
-                      )}
-                      {project.live && (
-                        <a
-                          href={project.live}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="project-card__link"
-                        >
-                          Demo <ArrowUpRight size={14} />
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </article>
+                <button
+                  key={i}
+                  type="button"
+                  className={`dot${isActive ? ' is-active' : ''}`}
+                  aria-label={`Go to project ${i + 1}`}
+                  aria-current={isActive ? 'true' : undefined}
+                  onClick={() => goTo(i)}
+                  style={{
+                    '--dot-accent': `var(--${visible[i].accent})`,
+                    background: isActive ? `var(--${visible[i].accent})` : undefined,
+                  } as React.CSSProperties}
+                />
               )
             })}
           </div>
-
-          <button
-            type="button"
-            className={`slider__nav slider__nav--next ${
-              activeIndex >= visible.length - 1 ? 'is-disabled' : ''
-            }`}
-            aria-label="Next project"
-            disabled={activeIndex >= visible.length - 1}
-            onClick={() => scrollToIndex(activeIndex + 1)}
-          >
-            <ArrowRight size={18} />
-          </button>
         </div>
 
-        {visible.length > 1 && (
-          <div className="projects__dots">
-            {visible.map((_, index) => (
-              <button
-                key={index}
-                type="button"
-                className={`dot${index === activeIndex ? ' is-active' : ''}`}
-                aria-label={`Go to project ${index + 1}`}
-                aria-current={index === activeIndex ? 'true' : undefined}
-                onClick={() => scrollToIndex(index)}
-              />
-            ))}
-          </div>
-        )}
-
-        {visible.length > 0 && (
-          <p className="projects__hint">
-            {isMobile ? 'Swipe to browse projects' : 'Scroll or drag to browse &middot; Click a card to explore'}
-          </p>
-        )}
+        <p className="projects__hint">
+          {totalCards > 1 ? 'Auto-rotating showcase · click a card to explore' : 'Click to explore'}
+        </p>
       </div>
     </section>
+  )
+}
+
+function ProjectCardContent({ project }: { project: Project }) {
+  const image = project.images?.[0]
+  const accentColor = linkInlineColor(project.accent)
+
+  return (
+    <>
+      <div className="project-card__visual">
+        {image ? (
+          <img
+            className="project-card__image"
+            src={image.src}
+            alt={image.alt || project.title}
+            loading="lazy"
+            decoding="async"
+          />
+        ) : project.visual ? (
+          <ProjectVisual variant={project.visual} />
+        ) : null}
+        <div className="project-card__fade" />
+        <span className="project-card__tag" style={tagInlineStyles(project.accent)}>
+          {project.category}
+        </span>
+      </div>
+
+      <div className="project-card__body">
+        <h3 className="project-card__title">{project.title}</h3>
+        <p className="project-card__blurb">{project.blurb}</p>
+        <ul className="chips" aria-label={`${project.title} stack`}>
+          {project.stack.slice(0, 4).map((tech) => (
+            <li className="chip chip--small" key={tech}>
+              {tech}
+            </li>
+          ))}
+          {project.stack.length > 4 ? (
+            <li className="chip chip--small chip--muted">
+              +{project.stack.length - 4}
+            </li>
+          ) : null}
+        </ul>
+        <div className="project-card__actions">
+          {project.repo && (
+            <a
+              href={project.repo}
+              target="_blank"
+              rel="noreferrer"
+              className="project-card__link"
+              style={{ color: accentColor }}
+              onClick={(event) => event.stopPropagation()}
+            >
+              <Github size={13} /> Source
+            </a>
+          )}
+          {project.live && (
+            <a
+              href={project.live}
+              target="_blank"
+              rel="noreferrer"
+              className="project-card__link"
+              style={{ color: accentColor }}
+              onClick={(event) => event.stopPropagation()}
+            >
+              Demo <ArrowUpRight size={13} />
+            </a>
+          )}
+        </div>
+      </div>
+    </>
   )
 }
