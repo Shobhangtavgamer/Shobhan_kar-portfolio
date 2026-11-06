@@ -7,8 +7,6 @@ import { SectionHeader } from './SectionHeader'
 type Filter = 'All' | Project['category']
 const filters: Filter[] = ['All', 'Full-stack', 'Frontend', 'AI / Data']
 
-// 3D carousel constants — mirrors the Framer ServiceCarousel3D layout
-const CARD_DEPTH = 460
 const AUTOPLAY_MS = 4000
 
 const LIGHT_ACCENTS = new Set<Project['accent']>(['lime', 'lilac', 'sand'])
@@ -32,23 +30,12 @@ export function ProjectsSection({ onOpenProject }: ProjectsSectionProps) {
   const [filter, setFilter] = useState<Filter>('All')
   const [activeIndex, setActiveIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
-  const [cumulativeRotation, setCumulativeRotation] = useState(0)
-  const [isMobile, setIsMobile] = useState(false)
   const [reducedMotion, setReducedMotion] = useState(false)
 
-  const rotatorRef = useRef<HTMLDivElement>(null)
+  const trackRef = useRef<HTMLDivElement>(null)
 
   const visible = filter === 'All' ? projects : projects.filter((p) => p.category === filter)
   const totalCards = visible.length
-  const anglePerCard = totalCards > 0 ? 360 / totalCards : 0
-  const faceAngles = Array.from({ length: totalCards }, (_, i) => i * anglePerCard)
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768)
-    check()
-    window.addEventListener('resize', check)
-    return () => window.removeEventListener('resize', check)
-  }, [])
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -61,52 +48,52 @@ export function ProjectsSection({ onOpenProject }: ProjectsSectionProps) {
   // Reset the carousel when the filtered set changes
   useEffect(() => {
     setActiveIndex(0)
-    setCumulativeRotation(0)
   }, [filter])
 
-  // Auto-rotation — pauses on hover and under reduced motion
+  // Auto-scroll through projects — pauses on hover and under reduced motion
   useEffect(() => {
     if (reducedMotion || isPaused || totalCards <= 1) return
     const timer = setInterval(() => {
-      setActiveIndex((prev) => {
-        const next = (prev + 1) % totalCards
-        setCumulativeRotation((r) => r - anglePerCard)
-        return next
-      })
+      setActiveIndex((prev) => (prev + 1) % totalCards)
     }, AUTOPLAY_MS)
     return () => clearInterval(timer)
-  }, [isPaused, reducedMotion, totalCards, anglePerCard])
+  }, [isPaused, reducedMotion, totalCards])
 
-  const goTo = useCallback(
-    (targetIndex: number) => {
+  // Scroll the track so the active card is centered in view
+  const scrollToIndex = useCallback(
+    (index: number) => {
       if (totalCards <= 1) return
-      setActiveIndex((prev) => {
-        // Rotate the shortest way around the cylinder
-        let diff = targetIndex - prev
-        if (diff > totalCards / 2) diff -= totalCards
-        if (diff < -totalCards / 2) diff += totalCards
-        setCumulativeRotation((r) => r - diff * anglePerCard)
-        return targetIndex
-      })
+      setActiveIndex(index)
+      const el = trackRef.current
+      if (!el) return
+      const cards = el.querySelectorAll<HTMLElement>('.project-card')
+      const card = cards[index]
+      if (!card) return
+      const containerWidth = el.clientWidth
+      const cardWidth = card.offsetWidth
+      const left = card.offsetLeft - containerWidth / 2 + cardWidth / 2
+      el.scrollTo({ left: Math.max(0, left), behavior: 'smooth' })
     },
-    [totalCards, anglePerCard],
+    [totalCards],
   )
 
   const goPrev = useCallback(() => {
     if (totalCards <= 1) return
     setActiveIndex((prev) => {
-      setCumulativeRotation((r) => r + anglePerCard)
-      return (prev - 1 + totalCards) % totalCards
+      const next = (prev - 1 + totalCards) % totalCards
+      scrollToIndex(next)
+      return next
     })
-  }, [totalCards, anglePerCard])
+  }, [totalCards, scrollToIndex])
 
   const goNext = useCallback(() => {
     if (totalCards <= 1) return
     setActiveIndex((prev) => {
-      setCumulativeRotation((r) => r - anglePerCard)
-      return (prev + 1) % totalCards
+      const next = (prev + 1) % totalCards
+      scrollToIndex(next)
+      return next
     })
-  }, [totalCards, anglePerCard])
+  }, [totalCards, scrollToIndex])
 
   const activeProject = visible[activeIndex]
   const activeAccent = activeProject?.accent ?? 'blue'
@@ -144,45 +131,6 @@ export function ProjectsSection({ onOpenProject }: ProjectsSectionProps) {
     </div>
   )
 
-  if (isMobile) {
-    return (
-      <section id="projects" className="section projects" aria-labelledby="projects-title">
-        <div className="container">
-          <SectionHeader
-            index="04"
-            eyebrow="Selected work"
-            titleId="projects-title"
-            title={
-              <>
-                Editorial <em>work</em>
-              </>
-            }
-            aside={headerAside}
-          />
-
-          <div className="projects__stack">
-            {visible.map((project) => (
-              <article
-                key={project.id}
-                className={`project-card project-card--mobile`}
-                onClick={(event) => handleCardClick(event, project)}
-                onKeyDown={(event) => handleCardKeyDown(event, project)}
-                role="button"
-                tabIndex={0}
-                aria-label={`Explore ${project.title}`}
-                style={{ '--accent': `var(--${project.accent})` } as React.CSSProperties}
-              >
-                <ProjectCardContent project={project} />
-              </article>
-            ))}
-          </div>
-
-          <p className="projects__hint">Tap a card to explore a project</p>
-        </div>
-      </section>
-    )
-  }
-
   return (
     <section id="projects" className="section projects" aria-labelledby="projects-title">
       <div className="container">
@@ -203,89 +151,77 @@ export function ProjectsSection({ onOpenProject }: ProjectsSectionProps) {
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
-          <div className="projects__stage">
-            <div
-              ref={rotatorRef}
-              className={`projects__rotator${reducedMotion ? ' projects__rotator--reduced' : ''}`}
-              style={{ transform: `rotateY(${cumulativeRotation}deg)` }}
-            >
-              {faceAngles.map((angle, i) => {
-                const project = visible[i]
-                const isActive = i === activeIndex
-                return (
-                  <article
-                    key={project.id}
-                    className={`project-card${isActive ? ' is-active' : ''}`}
-                    onClick={(event) => handleCardClick(event, project)}
-                    onKeyDown={(event) => handleCardKeyDown(event, project)}
-                    role="button"
-                    tabIndex={0}
-                    aria-label={`Explore ${project.title}`}
-                    style={{ '--accent': `var(--${project.accent})` } as React.CSSProperties}
-                  >
-                    <div
-                      className="project-card__face"
-                      style={{ transform: `rotateY(${angle}deg) translateZ(${CARD_DEPTH}px)` }}
-                    >
-                      <ProjectCardContent project={project} />
-                    </div>
-                  </article>
-                )
-              })}
-            </div>
-
-            <button
-              type="button"
-              className="projects__nav projects__nav--prev"
-              aria-label="Previous project"
-              disabled={totalCards <= 1}
-              onClick={goPrev}
-              style={{
-                '--nav-accent': `var(--${activeAccent})`,
-                '--nav-accent-contrast': navContrast,
-              } as React.CSSProperties}
-            >
-              <ArrowLeft size={16} />
-            </button>
-
-            <button
-              type="button"
-              className="projects__nav projects__nav--next"
-              aria-label="Next project"
-              disabled={totalCards <= 1}
-              onClick={goNext}
-              style={{
-                '--nav-accent': `var(--${activeAccent})`,
-                '--nav-accent-contrast': navContrast,
-              } as React.CSSProperties}
-            >
-              <ArrowRight size={16} />
-            </button>
-          </div>
-
-          <div className="projects__dots" role="group" aria-label="Project carousel">
-            {faceAngles.map((_, i) => {
-              const isActive = i === activeIndex
+          <div className="projects__track" ref={trackRef}>
+            {visible.map((project, index) => {
+              const isActive = index === activeIndex
               return (
-                <button
-                  key={i}
-                  type="button"
-                  className={`dot${isActive ? ' is-active' : ''}`}
-                  aria-label={`Go to project ${i + 1}`}
-                  aria-current={isActive ? 'true' : undefined}
-                  onClick={() => goTo(i)}
-                  style={{
-                    '--dot-accent': `var(--${visible[i].accent})`,
-                    background: isActive ? `var(--${visible[i].accent})` : undefined,
-                  } as React.CSSProperties}
-                />
+                <article
+                  key={project.id}
+                  className={`project-card${isActive ? ' is-active' : ''}`}
+                  style={{ '--accent': `var(--${project.accent})` } as React.CSSProperties}
+                  onClick={(event) => handleCardClick(event, project)}
+                  onKeyDown={(event) => handleCardKeyDown(event, project)}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`Explore ${project.title}`}
+                >
+                  <ProjectCardContent project={project} />
+                </article>
               )
             })}
           </div>
+
+          <button
+            type="button"
+            className="projects__nav projects__nav--prev"
+            aria-label="Previous project"
+            disabled={totalCards <= 1}
+            onClick={goPrev}
+            style={{
+              '--nav-accent': `var(--${activeAccent})`,
+              '--nav-accent-contrast': navContrast,
+            } as React.CSSProperties}
+          >
+            <ArrowLeft size={16} />
+          </button>
+
+          <button
+            type="button"
+            className="projects__nav projects__nav--next"
+            aria-label="Next project"
+            disabled={totalCards <= 1}
+            onClick={goNext}
+            style={{
+              '--nav-accent': `var(--${activeAccent})`,
+              '--nav-accent-contrast': navContrast,
+            } as React.CSSProperties}
+          >
+            <ArrowRight size={16} />
+          </button>
+        </div>
+
+        <div className="projects__dots" role="group" aria-label="Project carousel">
+          {Array.from({ length: totalCards }).map((_, i) => {
+            const isActive = i === activeIndex
+            return (
+              <button
+                key={i}
+                type="button"
+                className={`dot${isActive ? ' is-active' : ''}`}
+                aria-label={`Go to project ${i + 1}`}
+                aria-current={isActive ? 'true' : undefined}
+                onClick={() => scrollToIndex(i)}
+                style={{
+                  '--dot-accent': `var(--${visible[i].accent})`,
+                  background: isActive ? `var(--${visible[i].accent})` : undefined,
+                } as React.CSSProperties}
+              />
+            )
+          })}
         </div>
 
         <p className="projects__hint">
-          {totalCards > 1 ? 'Auto-rotating showcase · click a card to explore' : 'Click to explore'}
+          {totalCards > 1 ? 'Swipe or click arrows to browse · click a card to explore' : 'Click to explore'}
         </p>
       </div>
     </section>
