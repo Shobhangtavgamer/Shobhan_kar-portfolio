@@ -146,11 +146,12 @@ export function ProjectsSection({ onOpenProject }: ProjectsSectionProps) {
           aside={headerAside}
         />
 
-        <div
-          className="projects__carousel-wrap"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
+        <div className="reveal">
+          <div
+            className="projects__carousel-wrap"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
           <div className="projects__track" ref={trackRef}>
             {visible.map((project, index) => {
               const isActive = index === activeIndex
@@ -223,6 +224,7 @@ export function ProjectsSection({ onOpenProject }: ProjectsSectionProps) {
         <p className="projects__hint">
           {totalCards > 1 ? 'Swipe or click arrows to browse · click a card to explore' : 'Click to explore'}
         </p>
+        </div>
       </div>
     </section>
   )
